@@ -34,10 +34,9 @@ class IsSilence extends Transform {
   }
 
   override _transform(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    chunk: any,
+    chunk: Buffer,
     _: BufferEncoding,
-    callback: TransformCallback,
+    callback: TransformCallback
   ) {
     let silenceLength = 0;
     const consecutiveSilence = this.getConsecSilenceCount();
@@ -46,14 +45,17 @@ class IsSilence extends Transform {
     if (numSilenceFramesExitThresh) {
       for (let i = 0; i < chunk.length; i += 2) {
         let speechSample;
-        if (chunk[i + 1] > 128) {
-          speechSample = (chunk[i + 1] - 256) * 256;
-        } else {
-          speechSample = chunk[i + 1] * 256;
+        const next = chunk[i + 1];
+        if (next) {
+          if (next > 128) {
+            speechSample = (next - 256) * 256;
+          } else {
+            speechSample = next * 256;
+          }
+          speechSample += next;
         }
-        speechSample += chunk[i];
-
-        if (Math.abs(speechSample) > 2000) {
+        
+        if (speechSample && Math.abs(speechSample) > 2000) {
           if (this.debug) {
             console.log("Found speech block");
           }
@@ -73,7 +75,7 @@ class IsSilence extends Transform {
           console.log(
             "Found silence block: %d of %d",
             newConsecutiveSilence,
-            numSilenceFramesExitThresh,
+            numSilenceFramesExitThresh
           );
         }
         if (newConsecutiveSilence === numSilenceFramesExitThresh) {
