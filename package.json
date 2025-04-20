@@ -1,6 +1,6 @@
 {
   "name": "mic-ts",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A simple stream wrapper for arecord (Linux (including Raspbian)) and sox (Mac/Windows). Returns a Passthrough stream object so that stream control like pause(), resume(), pipe(), etc. are all available.",
   "keywords": [
     "node-mic",
