@@ -5,6 +5,8 @@ on:
     branches:
       - main
 
+# needs to set `Allow GitHub Actions to create and approve pull requests` to true
+# in https://github.com/[username]/[pkg]/settings/actions
 permissions:
   contents: write
   pull-requests: write
