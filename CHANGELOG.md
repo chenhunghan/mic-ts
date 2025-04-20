@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/chenhunghan/mic-ts/compare/mic-ts-v0.1.2...mic-ts-v0.1.3) (2025-04-20)
+
+
+### Bug Fixes
+
+* update default annotations in MicOptions interface for consistency ([cf4b64a](https://github.com/chenhunghan/mic-ts/commit/cf4b64aa798ccc2c9f2eaf90b15189f8355b7337))
+
 ## [0.1.2](https://github.com/chenhunghan/mic-ts/compare/mic-ts-v0.1.1...mic-ts-v0.1.2) (2025-04-20)
 
 
