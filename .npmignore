@@ -1,0 +1,7 @@
+.github/
+.vscode/
+.release-please-manifest.json
+.gitignore
+release-please-config.json
+eslint.config.js
+tsconfig.json
