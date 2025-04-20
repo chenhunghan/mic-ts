@@ -27,7 +27,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc -p .",
     "test": "npm run test:types && npm run test:lint && npm run test:format",
-    "e2e": "node tests/test.js",
+    "e2e": "tsx src/e2e.ts",
     "test:format": "prettier --write -c .",
     "test:lint": "eslint .",
     "test:types": "tsc -p . --noEmit"
@@ -37,6 +37,7 @@
     "@types/node": "^22.14.1",
     "eslint": "^9.25.0",
     "prettier": "^3.5.3",
+    "tsx": "^4.19.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.30.1"
   }
