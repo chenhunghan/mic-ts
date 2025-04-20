@@ -14,16 +14,16 @@ const outputFileStream = fs.createWriteStream("output.raw");
 micInputStream.pipe(outputFileStream);
 
 let chunkCounter = 0;
-micInputStream.on("data", function (data) {
+micInputStream.on("data", function (data: Buffer) {
   console.log(
-    "Recieved Input Stream of Size %d: %d",
+    "Received Input Stream of Size %d: %d",
     data.length,
     chunkCounter++,
   );
 });
 
-micInputStream.on("error", function (err) {
-  console.log("Error in Input Stream: " + err);
+micInputStream.on("error", function (error) {
+  console.log("Error in Input Stream: " + error);
 });
 
 micInputStream.on("startComplete", function () {
