@@ -21,7 +21,8 @@
     "url": "git+https://github.com/chenhunghan/mic-ts.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "license": "SEE LICENSE IN LICENSE",
   "author": "Hung-Han Chen",
