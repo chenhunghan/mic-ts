@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.4](https://github.com/chenhunghan/mic-ts/compare/mic-ts-v0.1.3...mic-ts-v0.1.4) (2025-04-20)
+
+
+### Bug Fixes
+
+* correct type annotation for data parameter and fix typo in log message ([c1859ef](https://github.com/chenhunghan/mic-ts/commit/c1859ef25ee7fc7f59c4bda5d8918fe20a945a73))
+* update _transform method to use Buffer type for chunk parameter ([2f44f83](https://github.com/chenhunghan/mic-ts/commit/2f44f835712e8cb862ff8db707eed574b67f0d02))
+
 ## [0.1.3](https://github.com/chenhunghan/mic-ts/compare/mic-ts-v0.1.2...mic-ts-v0.1.3) (2025-04-20)
 
 
