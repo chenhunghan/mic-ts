@@ -1,7 +1,7 @@
 import { spawn, type SpawnOptions } from "child_process";
 import { type } from "os";
 import { PassThrough } from "stream";
-import IsSilence from "./IsSilence.js";
+import { IsSilence } from "./IsSilence.js";
 
 interface MicOptions {
   /**
