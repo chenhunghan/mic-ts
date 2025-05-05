@@ -1,6 +1,6 @@
 import { Transform, type TransformCallback } from "stream";
 
-class IsSilence extends Transform {
+export class IsSilence extends Transform {
   private debug: boolean;
   private consecSilenceCount: number;
   private numSilenceFramesExitThresh: number;
@@ -88,5 +88,3 @@ class IsSilence extends Transform {
     callback();
   }
 }
-
-export default IsSilence;
