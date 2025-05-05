@@ -30,8 +30,9 @@
   "type": "module",
   "scripts": {
     "build": "rm -rf dist && tsc -p .",
-    "test": "npm run test:types && npm run test:lint && npm run test:format",
+    "test": "npm run test:types && npm run test:lint && npm run test:format && npm run test:unit",
     "e2e": "tsx src/e2e.ts",
+    "test:unit": "vitest run --passWithNoTests",
     "test:format": "prettier --write -c .",
     "test:lint": "eslint .",
     "test:types": "tsc -p . --noEmit"
