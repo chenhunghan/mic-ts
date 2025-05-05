@@ -36,7 +36,7 @@ export class IsSilence extends Transform {
   override _transform(
     chunk: Buffer,
     _: BufferEncoding,
-    callback: TransformCallback
+    callback: TransformCallback,
   ) {
     let silenceLength = 0;
     const consecutiveSilence = this.getConsecSilenceCount();
@@ -54,7 +54,7 @@ export class IsSilence extends Transform {
           }
           speechSample += next;
         }
-        
+
         if (speechSample && Math.abs(speechSample) > 2000) {
           if (this.debug) {
             console.log("Found speech block");
@@ -75,7 +75,7 @@ export class IsSilence extends Transform {
           console.log(
             "Found silence block: %d of %d",
             newConsecutiveSilence,
-            numSilenceFramesExitThresh
+            numSilenceFramesExitThresh,
           );
         }
         if (newConsecutiveSilence === numSilenceFramesExitThresh) {
