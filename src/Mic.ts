@@ -56,7 +56,7 @@ export class MicImpl implements Mic {
     this.audioStream = new IsSilence({ debug: this.debug });
     const exitOnSilence = options.exitOnSilence || 0;
     this.audioStream.setNumSilenceFramesExitThresh(
-      parseInt(`${exitOnSilence}`, 10)
+      parseInt(`${exitOnSilence}`, 10),
     );
 
     this.endian = options.endian || "little";
@@ -113,7 +113,7 @@ export class MicImpl implements Mic {
             "default",
             "-p",
           ],
-          this.getAudioProcessOptions()
+          this.getAudioProcessOptions(),
         );
       } else if (type() === "Darwin") {
         this.audioProcess = spawn(
@@ -133,7 +133,7 @@ export class MicImpl implements Mic {
             this.fileType,
             "-",
           ],
-          this.getAudioProcessOptions()
+          this.getAudioProcessOptions(),
         );
       } else {
         this.audioProcess = spawn(
@@ -150,7 +150,7 @@ export class MicImpl implements Mic {
             "-D",
             this.device,
           ],
-          this.getAudioProcessOptions()
+          this.getAudioProcessOptions(),
         );
       }
 
@@ -162,10 +162,10 @@ export class MicImpl implements Mic {
             if (this.debug)
               console.log(
                 "recording audioProcess has exited with code = %d",
-                code
+                code,
               );
           }
-        }
+        },
       );
       if (this.audioProcess.stdout) {
         this.audioProcess.stdout.pipe(this.audioStream);
@@ -177,7 +177,7 @@ export class MicImpl implements Mic {
     } else {
       if (this.debug) {
         throw new Error(
-          "Duplicate calls to start(): Microphone already started!"
+          "Duplicate calls to start(): Microphone already started!",
         );
       }
     }
