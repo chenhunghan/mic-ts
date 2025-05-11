@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/chenhunghan/mic-ts/compare/mic-ts-v0.1.5...mic-ts-v0.1.6) (2025-05-11)
+
+
+### Features
+
+* change audio command from sox to rec in start method ([7398380](https://github.com/chenhunghan/mic-ts/commit/7398380bc976556d1d6ff169e18d4893ba2698cd))
+
 ## [0.1.5](https://github.com/chenhunghan/mic-ts/compare/mic-ts-v0.1.4...mic-ts-v0.1.5) (2025-05-11)
 
 
