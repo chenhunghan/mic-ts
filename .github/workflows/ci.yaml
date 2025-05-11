@@ -16,11 +16,10 @@ jobs:
         with:
           node-version: "lts/*"
           cache: "npm"
-      - name: Install sox and arecord on Linux
+      - name: Install sox on Linux
         if: runner.os == 'Linux'
         run: |
-          sudo apt-get update
-          sudo apt-get install -y sox alsa-utils
+          sudo apt-get install -y sox
       - name: Install sox on macOS
         if: runner.os == 'macOS'
         run: |

@@ -1,6 +1,6 @@
 # mic-ts
 
-Forked from [mic](https://github.com/ashishbajaj99/mic) with the same interface, a stream simple wrapper of [arecord](http://alsa-project.org/)/[sox](http://sox.sourceforge.net/).
+Forked from [mic](https://github.com/ashishbajaj99/mic) with the same interface, a stream simple wrapper of [sox](http://sox.sourceforge.net/).
 
 ## Installation
 

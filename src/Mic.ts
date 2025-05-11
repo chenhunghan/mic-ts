@@ -1,5 +1,4 @@
 import { spawn, type SpawnOptions } from "child_process";
-import { type } from "os";
 import { PassThrough } from "stream";
 import { IsSilence } from "./IsSilence.js";
 import type { MicOptions } from "./MicOptions.js";
@@ -40,16 +39,12 @@ export class MicImpl implements Mic {
   private infoStream = new PassThrough();
   private audioStream: IsSilence;
   private debug: boolean;
-  private arecordEncoding: "U" | "S";
-  private arecordEndian: "BE" | "LE";
   private bitwidth: "8" | "16" | "24";
-  private arecordFormat: `${typeof this.arecordEncoding}${typeof this.bitwidth}_${typeof this.arecordEndian}`;
   private endian: "little" | "big";
   private channels: string;
   private rate: string;
   private encoding: string;
   private fileType: string;
-  private device: string;
 
   constructor(options: MicOptions = {}) {
     this.debug = options.debug || false;
@@ -60,15 +55,11 @@ export class MicImpl implements Mic {
     );
 
     this.endian = options.endian || "little";
-    this.arecordEndian = this.endian === "big" ? "BE" : "LE";
     this.encoding = options.encoding || "signed-integer";
-    this.arecordEncoding = this.encoding === "unsigned-integer" ? "U" : "S";
     this.bitwidth = options.bitwidth || "16";
-    this.arecordFormat = `${this.arecordEncoding}${this.bitwidth}_${this.arecordEndian}`;
     this.channels = options.channels || "1";
     this.rate = options.rate || "16000";
     this.fileType = options.fileType || "raw";
-    this.device = options.device || "plughw:1,0";
 
     if (this.debug) {
       this.infoStream.on("data", function (data) {
@@ -94,58 +85,22 @@ export class MicImpl implements Mic {
 
   public start() {
     if (this.audioProcess === null) {
-      let command: string;
-      let args: string[];
-      if (type() === "Windows_NT") {
-        command = "sox";
-        args = [
-          "-b",
-          this.bitwidth,
-          "--endian",
-          this.endian,
-          "-c",
-          this.channels,
-          "-r",
-          this.rate,
-          "-e",
-          this.encoding,
-          "-t",
-          "waveaudio",
-          "default",
-          "-p",
-        ];
-      } else if (type() === "Darwin") {
-        command = "rec";
-        args = [
-          "-b",
-          this.bitwidth,
-          "--endian",
-          this.endian,
-          "-c",
-          this.channels,
-          "-r",
-          this.rate,
-          "-e",
-          this.encoding,
-          "-t",
-          this.fileType,
-          "-",
-        ];
-      } else {
-        command = "arecord";
-        args = [
-          "-t",
-          this.fileType,
-          "-c",
-          this.channels,
-          "-r",
-          this.rate,
-          "-f",
-          this.arecordFormat,
-          "-D",
-          this.device,
-        ];
-      }
+      const command = "sox";
+      const args = [
+        "-b",
+        this.bitwidth,
+        "--endian",
+        this.endian,
+        "-c",
+        this.channels,
+        "-r",
+        this.rate,
+        "-e",
+        this.encoding,
+        "-t",
+        this.fileType,
+        "-",
+      ];
       this.audioProcess = spawn(command, args, this.getAudioProcessOptions());
       this.audioProcess.on("error", (err: NodeJS.ErrnoException) => {
         let message = `Error starting audio process "${command}": ${err.message}`;
