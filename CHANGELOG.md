@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/chenhunghan/mic-ts/compare/mic-ts-v0.1.4...mic-ts-v0.1.5) (2025-05-11)
+
+
+### Features
+
+* improve error handling ([cf8f572](https://github.com/chenhunghan/mic-ts/commit/cf8f572f00c94e606acbb3e5b4cd05f0087be4e3))
+
 ## [0.1.4](https://github.com/chenhunghan/mic-ts/compare/mic-ts-v0.1.3...mic-ts-v0.1.4) (2025-04-20)
 
 
