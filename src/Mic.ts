@@ -85,7 +85,7 @@ export class MicImpl implements Mic {
 
   public start() {
     if (this.audioProcess === null) {
-      const command = "sox";
+      const command = "rec";
       const args = [
         "-b",
         this.bitwidth,
