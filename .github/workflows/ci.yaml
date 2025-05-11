@@ -28,6 +28,6 @@ jobs:
       - name: Install sox on Windows
         if: runner.os == 'Windows'
         run: |
-          choco install sox
+          choco install sox.portable
       - run: npm ci
       - run: npm test
