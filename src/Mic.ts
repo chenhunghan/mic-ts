@@ -94,65 +94,71 @@ export class MicImpl implements Mic {
 
   public start() {
     if (this.audioProcess === null) {
+      let command: string;
+      let args: string[];
       if (type() === "Windows_NT") {
-        this.audioProcess = spawn(
-          "sox",
-          [
-            "-b",
-            this.bitwidth,
-            "--endian",
-            this.endian,
-            "-c",
-            this.channels,
-            "-r",
-            this.rate,
-            "-e",
-            this.encoding,
-            "-t",
-            "waveaudio",
-            "default",
-            "-p",
-          ],
-          this.getAudioProcessOptions(),
-        );
+        command = "sox";
+        args = [
+          "-b",
+          this.bitwidth,
+          "--endian",
+          this.endian,
+          "-c",
+          this.channels,
+          "-r",
+          this.rate,
+          "-e",
+          this.encoding,
+          "-t",
+          "waveaudio",
+          "default",
+          "-p",
+        ];
       } else if (type() === "Darwin") {
-        this.audioProcess = spawn(
-          "rec",
-          [
-            "-b",
-            this.bitwidth,
-            "--endian",
-            this.endian,
-            "-c",
-            this.channels,
-            "-r",
-            this.rate,
-            "-e",
-            this.encoding,
-            "-t",
-            this.fileType,
-            "-",
-          ],
-          this.getAudioProcessOptions(),
-        );
+        command = "rec";
+        args = [
+          "-b",
+          this.bitwidth,
+          "--endian",
+          this.endian,
+          "-c",
+          this.channels,
+          "-r",
+          this.rate,
+          "-e",
+          this.encoding,
+          "-t",
+          this.fileType,
+          "-",
+        ];
       } else {
-        this.audioProcess = spawn(
-          "arecord",
-          [
-            "-t",
-            this.fileType,
-            "-c",
-            this.channels,
-            "-r",
-            this.rate,
-            "-f",
-            this.arecordFormat,
-            "-D",
-            this.device,
-          ],
-          this.getAudioProcessOptions(),
-        );
+        command = "arecord";
+        args = [
+          "-t",
+          this.fileType,
+          "-c",
+          this.channels,
+          "-r",
+          this.rate,
+          "-f",
+          this.arecordFormat,
+          "-D",
+          this.device,
+        ];
       }
+      this.audioProcess = spawn(command, args, this.getAudioProcessOptions());
+      this.audioProcess.on("error", (err: NodeJS.ErrnoException) => {
+        let message = `Error starting audio process "${command}": ${err.message}`;
+        if (err.code === "ENOENT") {
+          message = `Audio command "${command}" not found. Please install it and ensure it's in your PATH.`;
+        }
+        const errorObj = new Error(message);
+        if (this.audioStream.listenerCount("error") > 0) {
+          this.audioStream.emit("error", errorObj);
+        } else {
+          console.error(message);
+        }
+      });
 
       this.audioProcess.on(
         "exit",
