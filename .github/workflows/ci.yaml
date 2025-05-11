@@ -6,12 +6,28 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
           cache: "npm"
+      - name: Install sox and arecord on Linux
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sox alsa-utils
+      - name: Install sox on macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install sox
+      - name: Install sox on Windows
+        if: runner.os == 'Windows'
+        run: |
+          choco install sox
       - run: npm ci
       - run: npm test
