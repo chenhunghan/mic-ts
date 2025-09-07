@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.6](https://github.com/chenhunghan/mic-ts/compare/mic-ts-v0.1.5...mic-ts-v0.1.6) (2025-09-07)
+
+
+### Features
+
+* change audio command from sox to rec in start method ([7398380](https://github.com/chenhunghan/mic-ts/commit/7398380bc976556d1d6ff169e18d4893ba2698cd))
+
+
+### Bug Fixes
+
+* add Windows compatibility for pause/resume functionality ([35db06f](https://github.com/chenhunghan/mic-ts/commit/35db06f42a03281963057f00d786292eecb9ae37))
+* exclude examples directory from ESLint linting ([98731b5](https://github.com/chenhunghan/mic-ts/commit/98731b5283e6de927c0dc0fe4432f8cfbbcda913))
+
 ## [0.1.5](https://github.com/chenhunghan/mic-ts/compare/mic-ts-v0.1.4...mic-ts-v0.1.5) (2025-05-11)
 
 
