@@ -157,22 +157,62 @@ export class MicImpl implements Mic {
 
   public pause() {
     if (this.audioProcess != null) {
-      this.audioProcess.kill("SIGSTOP");
-      this.audioStream.pause();
-      this.audioStream.emit("pauseComplete");
-      if (this.debug) {
-        console.log("Microphone paused");
+      try {
+        // SIGSTOP is not available on Windows, but we can still pause the stream
+        if (process.platform !== "win32") {
+          this.audioProcess.kill("SIGSTOP");
+        }
+        this.audioStream.pause();
+        this.audioStream.emit("pauseComplete");
+        if (this.debug) {
+          console.log("Microphone paused");
+        }
+      } catch (error) {
+        // On Windows, SIGSTOP is not available, but we still want to pause the stream
+        if (
+          process.platform === "win32" &&
+          error instanceof Error &&
+          error.message.includes("SIGSTOP")
+        ) {
+          this.audioStream.pause();
+          this.audioStream.emit("pauseComplete");
+          if (this.debug) {
+            console.log("Microphone paused (stream level on Windows)");
+          }
+        } else {
+          throw error;
+        }
       }
     }
   }
 
   public resume() {
     if (this.audioProcess != null) {
-      this.audioProcess.kill("SIGCONT");
-      this.audioStream.resume();
-      this.audioStream.emit("resumeComplete");
-      if (this.debug) {
-        console.log("Microphone resumed");
+      try {
+        // SIGCONT is not available on Windows, but we can still resume the stream
+        if (process.platform !== "win32") {
+          this.audioProcess.kill("SIGCONT");
+        }
+        this.audioStream.resume();
+        this.audioStream.emit("resumeComplete");
+        if (this.debug) {
+          console.log("Microphone resumed");
+        }
+      } catch (error) {
+        // On Windows, SIGCONT is not available, but we still want to resume the stream
+        if (
+          process.platform === "win32" &&
+          error instanceof Error &&
+          error.message.includes("SIGCONT")
+        ) {
+          this.audioStream.resume();
+          this.audioStream.emit("resumeComplete");
+          if (this.debug) {
+            console.log("Microphone resumed (stream level on Windows)");
+          }
+        } else {
+          throw error;
+        }
       }
     }
   }
