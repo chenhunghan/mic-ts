@@ -6,3 +6,5 @@ const mic = function mic(options: MicOptions = {}): Mic {
 };
 
 export default mic;
+export { MicImpl };
+export type { Mic };
